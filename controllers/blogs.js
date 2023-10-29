@@ -14,7 +14,7 @@ blogsRouter.post('/', async (request, response) => {
 	{
 		blog.likes = 0
 	}
-	if(blog.url === undefined || blog.tittle === undefined){
+	if(blog.url === undefined || blog.title === undefined){
 		response.status(400).send('Bad Request')
 	}
 

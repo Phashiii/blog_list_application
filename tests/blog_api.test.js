@@ -77,7 +77,7 @@ test('likes default to 0 if null', async () => {
 }, 10000)
 
 test('blog post missing url recives 400 response', async () => {
-    const newBlog = {
+	const newBlog = {
 		title:'wowow',
 		author:'wqppp',
 		likes: 100
@@ -85,8 +85,36 @@ test('blog post missing url recives 400 response', async () => {
 	await api
 		.post('/api/blogs')
 		.send(newBlog)
-        .expect(400)
-        .expect('Bad Request')
+		.expect(400)
+		.expect('Bad Request')
+
+})
+
+test('blog post missing title recives 400 response', async () => {
+	const newBlog = {
+		author:'wqppp',
+		url:'#',
+		likes: 100
+	}
+	await api
+		.post('/api/blogs')
+		.send(newBlog)
+		.expect(400)
+		.expect('Bad Request')
+
+})
+
+
+test('blog post missing url and title recives 400 response', async () => {
+	const newBlog = {
+		author:'wqppp',
+		likes: 100
+	}
+	await api
+		.post('/api/blogs')
+		.send(newBlog)
+		.expect(400)
+		.expect('Bad Request')
 
 })
 afterAll(async () => {
