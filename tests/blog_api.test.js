@@ -35,6 +35,7 @@ test('blogs are returned as json', async () => {
 		.expect('Content-Type', /application\/json/)
 }, 100000)
 
+
 test('blog id is defined', async () => {
 	const blogs = await Blog.find({})
 	const blogOne = blogs[0]
@@ -104,7 +105,6 @@ test('blog post missing title recives 400 response', async () => {
 
 })
 
-
 test('blog post missing url and title recives 400 response', async () => {
 	const newBlog = {
 		author:'wqppp',
@@ -117,6 +117,36 @@ test('blog post missing url and title recives 400 response', async () => {
 		.expect('Bad Request')
 
 })
+
+test('delete an existing blog', async () => {
+	const blogs = await Blog.find({})
+	const blogId = blogs[0].id
+
+	await api.delete(`/api/blogs/${blogId}`)
+		.expect(204)
+    
+	const blogsAtTheEnd = await Blog.find({})
+	expect(blogsAtTheEnd).toHaveLength(blogs.length - 1)
+})
+
+test('update an exsisting blogs likes', async () => {
+	const blogs = await Blog.find({})
+	const oldBlog = blogs[0]
+
+	const newBlog = {
+		title: oldBlog.title,
+		author: oldBlog.author,
+		url: oldBlog.url,
+		likes:10000000
+	}
+	await api
+		.put(`/api/blogs/${oldBlog.id}`)
+		.send(newBlog)
+	const blogAtTheEnd = await Blog.findById(oldBlog.id)
+	
+	expect(blogAtTheEnd.likes).toBe(10000000)
+}, 100000)
+
 afterAll(async () => {
 	await mongoose.connection.close()
 })
