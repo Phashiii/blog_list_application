@@ -1,12 +1,6 @@
-POST http://localhost:3003/api/blogs
-Content-Type: application/json
+DELETE  http://localhost:3003/api/blogs/6540fb619e24b06c4dbbe95c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRoYXRwIiwiaWQiOiI2NTQwZGQwZDYwMThjZWZkOTI0Nzc3NmIiLCJpYXQiOjE2OTg3NTYwNTgsImV4cCI6MTY5ODc1OTY1OH0.-zzjwlyEIE0UD_9pyjMPVIDWuRpLnPURj5phvghh5K8
 
-{
-    "title": "I have friends on here somewhere I swear",
-    "author": "Rippen Gaye",
-    "url": "#",
-    "likes": "2"
-}
 ###
 POST http://localhost:3003/api/users
 Content-Type: application/json
@@ -14,7 +8,25 @@ Content-Type: application/json
 {
     "username": "Thatp",
     "name": "Phashiii",
-    "password": "00aa"
+    "password": "0000"
 }
 ###
-GET http://localhost:3003/api/users
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRoYXRwIiwiaWQiOiI2NTQwZGQwZDYwMThjZWZkOTI0Nzc3NmIiLCJpYXQiOjE2OTg3NTYwNTgsImV4cCI6MTY5ODc1OTY1OH0.-zzjwlyEIE0UD_9pyjMPVIDWuRpLnPURj5phvghh5K8
+ 
+{
+"title": "The leaves are blue in heart and soul",
+"author": "Rippen Gaye",
+"url": "#",
+"likes": "2"
+}
+###
+DELETE  http://localhost:3003/api/blogs/65393f5e137695dc4faa04e8
+
+###
+GET http://localhost:3003/api/blogs/
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRoYXRwIiwiaWQiOiI2NTQwZGQwZDYwMThjZWZkOTI0Nzc3NmIiLCJpYXQiOjE2OTg3NTYwNTgsImV4cCI6MTY5ODc1OTY1OH0.-zzjwlyEIE0UD_9pyjMPVIDWuRpLnPURj5phvghh5K8
+
+###
+POST http://localhost:3003/api/testing/reset

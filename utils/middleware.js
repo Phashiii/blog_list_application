@@ -1,11 +1,17 @@
+/* eslint-disable no-undef */
 const logger = require('./logger')
-
+const User = require('../models/user')
+const jwt = require('jsonwebtoken')
 
 const requestLogger = (request, response, next) => {
 	logger.info('Method:', request.method)
 	logger.info('Path:  ', request.path)
 	logger.info('Body:  ', request.body)
 	logger.info('---')
+	next()
+}
+const unknownEndpoint = (request, response, next) => {
+	response.status(404).send({ error: 'unknown endpoint' })
 	next()
 }
   
@@ -33,8 +39,22 @@ const tokenExtractor = (request, response, next) => {
 	}
 	next()
 }
+
+const userExtractor = async (request, response, next) => {
+	const decodedToken = jwt.verify(request.token, process.env.SECRET)
+	if(!decodedToken.id){
+		return response.status(401).json({ error: 'token invalid' })
+	}
+	const user = await User.findById(decodedToken.id)
+
+	request.user = user
+	
+	next()
+}
 module.exports = {
 	requestLogger,
 	errorHandler,
-	tokenExtractor
+	tokenExtractor,
+	userExtractor,
+	unknownEndpoint
 }
